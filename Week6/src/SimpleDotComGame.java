@@ -1,25 +1,26 @@
 public class SimpleDotComGame {
-    public static void main(String args[])
+
+    public static void main(String[] args)
     {
-        int numOfGuesses = 0;
+        int numOfGuesses =0;
         GameHelper helper = new GameHelper();
 
-        SimpleDotCom theDotCom = new SimpleDotCom();
-        int randomNum=(int)(Math.random())*5;
+        SimpleDot theDotCom = new SimpleDot();
+        int randomNum = (int)(Math.random()*5);
 
-        int[] locations ={randomNum,randomNum+1,randomNum+2};
+        int[] locations = {randomNum,randomNum+1,randomNum+2};
         theDotCom.setLocationCells(locations);
         boolean isAlive = true;
 
-        while(isAlive == true)
+        while (isAlive == true)
         {
-            String guess = helper.getUserInput("enter a munber");
+            String guess = helper.getUserInput("enter a number");
             String result = theDotCom.checkYourself(guess);
             numOfGuesses++;
-            if(result.equals("Kill"))
+            if(result.equals("kill"))
             {
                 isAlive = false;
-                System.out.println(numOfGuesses+" guesses");
+                System.out.println(numOfGuesses + "guesses");
             }
         }
     }

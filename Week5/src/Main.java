@@ -1,7 +1,6 @@
 //2016112154 정동구
 import java.util.Scanner;
 
-
 public class Main {
 
     public static void main(String[] args)
