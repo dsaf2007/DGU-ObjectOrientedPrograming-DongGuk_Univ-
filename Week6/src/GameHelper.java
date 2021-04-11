@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class GameHelper {
+public class GameHelper {//라인을 입력받을 game helper
     public String getUserInput(String prompt)
     {
         String inputLine = null;
