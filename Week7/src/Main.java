@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main
 {
-    public ArrayList<Card> Cardset = new ArrayList<Card>();
+
     Scanner sc = new Scanner(System.in);
     public static void main(String[] args)
     {
