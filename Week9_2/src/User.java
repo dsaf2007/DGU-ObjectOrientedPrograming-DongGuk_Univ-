@@ -5,7 +5,7 @@ import java.util.Collections;
 public class User {
 
     public ArrayList<Card> hand = new ArrayList<Card>();//손에 쥔 카드
-
+    Scanner sc = new Scanner(System.in);
     public boolean compare(Card a, Card b)
     {
         boolean same = false;
@@ -22,26 +22,52 @@ public class User {
         this.hand.add(draw);
     }
 
+    public boolean searchCard(Card table)
+    {
+        for(int i =0; i< hand.size();i++)
+        {
+            if(compare(table,hand.get(i)))
+                return true;
+        }
+        return false;
+    }
+
+
     public Card playCard(Card table)
     {
-        ArrayList<Card> same_card = new ArrayList<Card>();
-        for(int i = 0;i<hand.size();i++)
+        String shape;
+        int num;
+        System.out.println("choose card to play");
+        System.out.print("shape:");
+        shape = sc.nextLine();
+        System.out.print("num:");
+        num = sc.nextInt();
+        while(table.getNum() != num && table.getShape() != shape)
         {
-            if(compare(hand.get(i),table)==true)
-                same_card.add(hand.get(i));
+                System.out.println("cannot play card");
+                System.out.println("choose card to play");
+                System.out.print("shape:");
+                shape = sc.nextLine();
+                System.out.print("num:");
+                num = sc.nextInt();
         }
-        Collections.sort(same_card, new Comparator<Card>() {//숫자 기준 내림차순 정렬. 일치하는 카드 중 숫자가 가장 큰 카드 우선 제출
-            @Override
-            public int compare(Card o1, Card o2) {
-                if(o1.getNum() > o2.getNum())
-                    return -1;
-                else if(o1.getNum() < o2.getNum())
-                    return 1;
-                return 0;
-            }
-        });
+        int index=0;
+        for(int i = 0 ; i < hand.size(); i ++)
+        {
+            if(shape == hand.get(i).getShape() && num == hand.get(i).getNum())
+                index = i;
+        }
+        Card play = hand.get(index);
+        hand.remove(index);
+        return play;
+    }
 
-        return same_card.get(0);
+    public boolean win()
+    {
+        if(hand.size() == 0)
+            return true;
+        else
+            return false;
     }
 
 }
