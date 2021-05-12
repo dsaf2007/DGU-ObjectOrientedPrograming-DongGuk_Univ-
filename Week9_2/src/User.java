@@ -20,9 +20,9 @@ public class User {
     public void drawCard(Card draw)
     {
         this.hand.add(draw);
-    }
+    }//카드 뽑기
 
-    public boolean searchCard(Card table)
+    public boolean searchCard(Card table)//테이블에 카드가 패에 존재하는지 확인
     {
         for(int i =0; i< hand.size();i++)
         {
@@ -33,16 +33,18 @@ public class User {
     }
 
 
-    public Card playCard(Card table)
+    public Card playCard(Card table)//테이블에 존재하는 카드와 일치할 경우 낸다.
     {
         String shape;
         int num;
+       // System.out.println(table.getShape() + " " + table.getNum());
         System.out.println("choose card to play");
         System.out.print("shape:");
         shape = sc.nextLine();
         System.out.print("num:");
         num = sc.nextInt();
-        while(table.getNum() != num && table.getShape() != shape)
+        sc.nextLine();
+        while(table.num != num && !table.shape.equals(shape))//일치하지 않는 경우
         {
                 System.out.println("cannot play card");
                 System.out.println("choose card to play");
@@ -50,19 +52,20 @@ public class User {
                 shape = sc.nextLine();
                 System.out.print("num:");
                 num = sc.nextInt();
+                sc.nextLine();
         }
         int index=0;
         for(int i = 0 ; i < hand.size(); i ++)
         {
-            if(shape == hand.get(i).getShape() && num == hand.get(i).getNum())
+            if(shape.equals(hand.get(i).getShape()) && num == hand.get(i).getNum())
                 index = i;
         }
         Card play = hand.get(index);
-        hand.remove(index);
+        hand.remove(index);//낸 후 손에서 제거
         return play;
     }
 
-    public boolean win()
+    public boolean win()//승리 여부
     {
         if(hand.size() == 0)
             return true;
@@ -70,12 +73,12 @@ public class User {
             return false;
     }
 
-    public void clearHand()
+    public void clearHand()//손을 비운다.
     {
         hand.clear();
     }
 
-    public void showHand()
+    public void showHand()//패를 보여준다.
     {
         for(int i = 0 ; i <hand.size();i++)
         {
@@ -83,6 +86,4 @@ public class User {
             System.out.println();
         }
     }
-
-
 }

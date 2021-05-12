@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Computer2 extends User{
-    public Card playCard(Card table)
+public class Computer2 extends User{//컴퓨터 2 User를 상속한다.
+    public Card playCard(Card table)//메소드 오버라이딩
     {
         ArrayList<Card> same_card = new ArrayList<Card>();
+        same_card.clear();
         for(int i = 0;i<hand.size();i++)
         {
             if(compare(hand.get(i),table)==true)
@@ -21,7 +22,11 @@ public class Computer2 extends User{
                 return 0;
             }
         });
-
+        for(int i = 0;i<hand.size();i++)
+        {
+            if(hand.get(i).getShape().equals(same_card.get(0).getShape()) && hand.get(i).getNum() == same_card.get(0).getNum())
+                hand.remove(i);//낸 카드 패에서 삭제
+        }
         return same_card.get(0);
     }
 }

@@ -5,15 +5,15 @@ public class CardGame {
     public String[] cardName = {"spade","dia","heart","clover"};//모양 종류
     public int[] cardNum = {2,3,4,5,6,7,8,9,10};//숫자 종류
 
-    public static User[] players;
+    public ArrayList<User> players=new ArrayList<User>();
     
     public Card table_card;
 
     CardGame()
     {
-        players[0] = new Player();
-        players[1] = new Computer1();
-        players[2] = new Computer2();
+        players.add(new Player());
+        players.add(new Computer1());
+        players.add(new Computer2());
     }
     public void createCardset()//카드셋 생성
     {
@@ -29,18 +29,18 @@ public class CardGame {
     public void initializeCard()
     {
         createCardset();
-        for(int i = 0 ; i < 5;i++){
-            for(int j =0 ;j<players.length;j++)
+        for(int i = 0 ; i < 5;i++){//5장씩 배부
+            for(int j =0 ;j<players.size();j++)
             {
-                players[j].drawCard(deck.get(0));
+                players.get(j).drawCard(deck.get(0));
                 deck.remove(0);
             }
         }
-        table_card = deck.get(0);
+        table_card = deck.get(0);//카드 한장 뒤집기
             deck.remove(0);
     }
 
-    public Card dealCard()
+    public Card dealCard()//유저가 카드를 뽑아 갈 때
     {
         Card temp = deck.get(0);
         deck.remove(0);
@@ -55,8 +55,5 @@ public class CardGame {
     {
         this.table_card = new_table;
     }
-
-
-
 
 }
