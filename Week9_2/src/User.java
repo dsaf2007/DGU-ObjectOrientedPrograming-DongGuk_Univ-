@@ -70,4 +70,19 @@ public class User {
             return false;
     }
 
+    public void clearHand()
+    {
+        hand.clear();
+    }
+
+    public void showHand()
+    {
+        for(int i = 0 ; i <hand.size();i++)
+        {
+            System.out.print("["+hand.get(i).getShape()+" "+hand.get(i).getNum()+"] ");
+            System.out.println();
+        }
+    }
+
+
 }
