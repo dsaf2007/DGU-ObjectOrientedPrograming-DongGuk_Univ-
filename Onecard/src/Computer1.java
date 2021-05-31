@@ -12,6 +12,13 @@ public class Computer1 extends User{//User 상속
             if(compare(hand.get(i),table)==true)
                 same_card.add(hand.get(i));
         }
+
+        if(same_card.size() ==0) {//낼 카드가 없는데 패에 7이 있을 때
+            for (int i = 0; i < hand.size(); i++) {
+                if (hand.get(i).getNum().equals("7"))
+                    same_card.add(hand.get(i));
+            }
+        }
         Collections.sort(same_card, new Comparator<Card>() {//숫자 기준 내림차순 정렬. 일치하는 카드 중 숫자가 가장 큰 카드 우선 제출
             @Override
             public int compare(Card o1, Card o2) {

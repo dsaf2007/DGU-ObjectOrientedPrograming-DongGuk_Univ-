@@ -2,7 +2,7 @@ import java.util.*;
 public class CardGame {
 
     public ArrayList<Card> deck = new ArrayList<Card>();
-    public String[] cardName = {"spade","dia","heart","clover","joker"};//모양 종류
+    public String[] cardName = {"spade","dia","heart","clover"};//모양 종류
     public String[] cardNum = {"A","J","Q","K","2","3","4","5","6","7","8","9","10"};//숫자 종류
 
     public ArrayList<User> players=new ArrayList<User>();
@@ -23,6 +23,7 @@ public class CardGame {
             {
                 deck.add(new Card(cardName[i],cardNum[j]));//모양별 숫자 2-10까지 add
             }
+        deck.add(new Card("joker","joker"));
         Collections.shuffle(deck);//무작위로 섞는다
     }
 

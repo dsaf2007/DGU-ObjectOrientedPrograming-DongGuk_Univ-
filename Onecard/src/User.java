@@ -28,6 +28,8 @@ public class User {
         {
             if(compare(table,hand.get(i)))
                 return true;
+            if(hand.get(i).getNum().equals("7"))
+                return true;
         }
         return false;
     }
@@ -45,6 +47,8 @@ public class User {
         num = sc.nextLine();
         while(!table.num.equals(num) && !table.shape.equals(shape))//일치하지 않는 경우
         {
+            if(num.equals("7"))
+                break;
                 System.out.println("cannot play card");
                 System.out.println("choose card to play");
                 System.out.print("shape:");
