@@ -17,7 +17,6 @@ public class Main {
         int one_turn = 0; //한턴을 세기 위한 변수
         boolean draw = false;
         int turn = 1;
-        boolean skip = false;
         int i = 0;
         while(true)
         {
@@ -30,30 +29,53 @@ public class Main {
                 if (temp_card.getNum().compareTo("J")==0)//J일 경우 턴 스킵
                 {
                     i +=turn;
+                    one_turn ++;
+                    if(turn == 1 && i ==3)
+                        i=0;
+                    if(turn ==-1 && i ==-1)
+                        i =2;
                 }
                 temp_card = new Card("","");//빈 카드로 초기화
                 if(i == 0) {
-                    System.out.println("table Card is ["+game.getTable_card().getShape()+" "+game.getTable_card().getNum()+"]");
-                    System.out.println("Choose command");
-                    System.out.println("1. Draw Card");
-                    System.out.println("2. Play Card");
-                    System.out.println("3. Show hand");
-                    System.out.println("Command : ");
-                    cmd = sc.nextInt();
-                    switch (cmd) {
-                        case 1:
+                    if(draw == true && game.players.get(0).searchAttack(game.getTable_card())==false)
+                    {
+                        System.out.println("no card to attack. draw "+card_draw+"cards");
+                        draw = false;
+                        for(int k = 0 ; k < card_draw;k++)
+                        {
                             game.players.get(0).drawCard(game.dealCard());
-                            break;
-                        case 2:
-                            temp_card = game.players.get(0).playCard(game.getTable_card());
-                            game.setTable_card(temp_card);
-                            break;
-                        case 3:
-                            game.players.get(0).showHand();
-                            //i -=turn;
-                            continue;
+                        }
+                        card_draw = 0;
+                        if (game.getTable_card().getNum().equals("joker"))//조커가 나왔을 경우
+                        {
+                            game.setTable_card(game.dealCard());//덱에서 한장 까서 테이블 카드 변경
+                            System.out.println("new table card is : "+game.getTable_card().getShape()+" "+game.getTable_card().getNum());
+                        }
                     }
-                    if(temp_card.getNum().equals("7"))
+                    else {
+                        System.out.println("table Card is [" + game.getTable_card().getShape() + " " + game.getTable_card().getNum() + "]");
+                        System.out.println("Choose command");
+                        System.out.println("1. Draw Card");
+                        System.out.println("2. Play Card");
+                        System.out.println("3. Show hand");
+                        System.out.println("Command : ");
+                        cmd = sc.nextInt();
+                        switch (cmd) {
+                            case 1:
+                                game.players.get(0).drawCard(game.dealCard());//카드뽑기
+                                break;
+                            case 2:
+                                temp_card = game.players.get(0).playCard(game.getTable_card());//카드내기
+                                game.setTable_card(temp_card);
+                                break;
+                            case 3:
+                                game.players.get(0).showHand();//패 보여주기
+                                //i -=turn;
+                                continue;
+                        }
+                    }
+
+                    if(temp_card.getNum().equals("7"))//7일경우 모양변경
                     {
                         sc.nextLine();
                         System.out.println("change shape to : ");
@@ -65,25 +87,53 @@ public class Main {
                 }
                 else
                 {
-                    if(game.getTable_card().getNum().compareTo(("J"))==0)//턴 스킵
-                        i+=turn;
                     temp_card = new Card("","");//빈 카드로 초기화
-
-                System.out.println(game.players.get(i).getClass().getName()+" is playing");
-                if(game.players.get(i).searchCard(game.getTable_card())==true) {
-                    temp_card = game.players.get(i).playCard(game.getTable_card());
-                    game.setTable_card(temp_card);
-                    System.out.println(game.players.get(i).getClass().getName()+"has played ["+game.getTable_card().getShape()+" "+game.getTable_card().getNum()+"]");
-                    if(temp_card.getNum().equals("7"))
+                    if(draw == true && game.players.get(i).searchAttack(game.getTable_card())==false)
                     {
-                        Random rnd = new Random();
-                        String change_shape= game.cardName[rnd.nextInt(4)];
-                        System.out.println("change shape to : " + change_shape);
-                        game.setTable_card(new Card(change_shape,"7"));
+                        System.out.println("no card to attack. draw "+card_draw+"cards");
+                        draw = false;
+                        for(int k = 0 ; k < card_draw;k++)
+                        {
+                            game.players.get(i).drawCard(game.dealCard());
+                        }
+                        card_draw =0;
+                        if (game.getTable_card().getNum().equals("joker"))//조커가 나왔을 경우
+                        {
+                            game.setTable_card(game.dealCard());//덱에서 한장 까서 테이블 카드 변경
+                            System.out.println("new table card is : "+game.getTable_card().getShape()+" "+game.getTable_card().getNum());
+                        }
+                    }
+                else {
+                        System.out.println(game.players.get(i).getClass().getName() + " is playing");
+                        if (game.players.get(i).searchCard(game.getTable_card()) == true) {
+                            temp_card = game.players.get(i).playCard(game.getTable_card(),draw);
+                            game.setTable_card(temp_card);
+                            System.out.println(game.players.get(i).getClass().getName() + "has played [" + game.getTable_card().getShape() + " " + game.getTable_card().getNum() + "]");
+                            if (temp_card.getNum().equals("7")) {
+                                Random rnd = new Random();
+                                String change_shape = game.cardName[rnd.nextInt(4)];
+                                System.out.println("change shape to : " + change_shape);
+                                game.setTable_card(new Card(change_shape, "7"));
+                            }
+                        } else
+                            game.players.get(i).drawCard(game.dealCard());
                     }
                 }
-                else
-                    game.players.get(i).drawCard(game.dealCard());
+
+                if(temp_card.getNum().equals("2"))
+                {
+                    draw = true;
+                    card_draw +=2;
+                }
+                if(temp_card.getNum().equals("A"))
+                {
+                    draw = true;
+                    card_draw +=3;
+                }
+                if(temp_card.getShape().equals("joker"))
+                {
+                    draw = true;
+                    card_draw +=5;
                 }
 
                 if (temp_card.getNum().compareTo("Q")==0)//순서 변경
@@ -95,6 +145,7 @@ public class Main {
 
                     one_turn = 0;
                 }
+
                 i +=turn;
                 if(temp_card.getNum().compareTo("K")==0)//turn 을 빼서 루프가 한번 돌아서 자신차례가 한번 더 오게 한다.
                 { i -= turn; one_turn --;}
@@ -114,7 +165,6 @@ public class Main {
                     game_end = true;
                 }
             }
-            sc.nextLine();
            if(game_end == true) {
                //game.ranking();
                System.out.println("Winner is "+game.players.get(win).getClass().getName());
@@ -128,6 +178,7 @@ public class Main {
                String restart;
 
                System.out.print("restart game? (y/n) :");
+               sc.nextLine();
                restart = sc.nextLine();
                switch(restart)
                {
