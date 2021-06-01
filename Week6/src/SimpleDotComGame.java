@@ -8,11 +8,11 @@ public class SimpleDotComGame {
         int numOfDots = (int)(Math.random()*2 +3);//3~5
         GameHelper helper = new GameHelper();
         SimpleDot[] theDotCom = new SimpleDot[numOfDots];
-
+        int xCoordinate = (int) (Math.random() * 10);//x좌표 생성
+        int yCoordinate = (int) (Math.random() * 10);//y좌표 생성
         for(int j = 0; j < numOfDots;j++) //3-5개의 dot생성
         {
-            int xCoordinate = (int) (Math.random() * 10);//x좌표 생성
-            int yCoordinate = (int) (Math.random() * 10);//y좌표 생성
+
 
             Random random = new Random();
             boolean shape = random.nextBoolean();//가로 세로 결정.

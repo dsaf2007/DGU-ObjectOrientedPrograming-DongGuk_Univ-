@@ -1,3 +1,5 @@
+//2016112154 정동구
+
 public class Card {
     String shape;//가로
     String num;//세로

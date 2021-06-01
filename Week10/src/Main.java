@@ -145,7 +145,7 @@ class dog implements move,life{
 
     public void changeEat()//식사 여부 변경
     {
-        if(sleeping == true)
+        if(eating == true)
             this.eating = false;
         else
             this.eating = true;
@@ -201,7 +201,7 @@ class cat implements move,life{
 
     public void changeEat()//식사 여부 변경
     {
-        if(sleeping == true)
+        if(eating == true)
             this.eating = false;
         else
             this.eating = true;
@@ -305,7 +305,7 @@ class human implements move,life
 
     public void changeEat()//식사여부 변경
     {
-        if(sleeping == true)
+        if(eating == true)
             this.eating = false;
         else
             this.eating = true;
@@ -330,19 +330,19 @@ class Airplane implements move{
 
     public void front()
     {
-        System.out.println("human moves front");
+        System.out.println("airplane moves front");
     }//앞
     public void back()
     {
-        System.out.println("human moves back");
+        System.out.println("airplane moves back");
     }//뒤
     public void left()
     {
-        System.out.println("human moves left");
+        System.out.println("airplane moves left");
     }//왼
     public void right()
     {
-        System.out.println("human moves right");
+        System.out.println("airplane moves right");
     }//오
 
     public void getAirline()//항공사 출력
